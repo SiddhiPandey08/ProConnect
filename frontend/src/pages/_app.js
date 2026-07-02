@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { store } from "@/config/redux/store.js";
 import { useEffect } from "react";
 import socket from "@/config/socket.js";
-import Toast from "@/components/Toast";
+import Toast from "@/Components/Toast";
 function SocketInitializer() {
   useEffect(() => {
     const token = localStorage.getItem("token");
