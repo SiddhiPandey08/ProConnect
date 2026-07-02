@@ -1,0 +1,386 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+.container {
+  font-family: "Poppins", sans-serif;
+  padding: 2rem;
+}
+
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  gap: 4rem;
+  padding-inline: 2rem;
+}
+
+.mainContainer_right {
+  flex: 0.5;
+  display: flex;
+  justify-content: center;
+}
+
+.mainContainer_right img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+}
+
+.mainContainer_left {
+  flex: 0.5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mainContainer_left > p:nth-child(1) {
+  font-size: 2.9rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.mainContainer_left > p:nth-child(2) {
+  color: #74ad0d;
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.mainContainer_left > p:nth-child(3) {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.buttonJoin {
+  width: fit-content;
+  margin-top: 1.4rem;
+}
+
+.buttonJoin button {
+  background-color: #74ad0d;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.buttonJoin button:hover {
+  background-color: #5f8e0a;
+  transform: scale(1.04);
+}
+
+/* ─── Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.2rem;
+  }
+
+  .mainContainer {
+    flex-direction: column-reverse;
+    min-height: unset;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    gap: 2rem;
+    padding-inline: 0;
+    text-align: center;
+    align-items: center;
+  }
+
+  .mainContainer_right {
+    flex: unset;
+    width: 75%;
+  }
+
+  .mainContainer_left {
+    flex: unset;
+    width: 100%;
+    align-items: center;
+  }
+
+  .mainContainer_left > p:nth-child(1) {
+    font-size: 2rem;
+  }
+
+  .mainContainer_left > p:nth-child(2) {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContainer_right {
+    width: 90%;
+  }
+
+  .mainContainer_left > p:nth-child(1) {
+    font-size: 1.65rem;
+  }
+
+  .mainContainer_left > p:nth-child(2) {
+    font-size: 1.1rem;
+  }
+}
+/* ── Social proof ───────────────────────────────────────── */
+.proofStrip {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 2rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.avatarStack {
+  display: flex;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2.5px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  margin-left: -10px;
+  flex-shrink: 0;
+}
+
+.avatar:first-child {
+  margin-left: 0;
+}
+
+.proofStrip p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+/* ── Shared section tokens ──────────────────────────────── */
+.sectionEyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #74ad0d;
+}
+
+.sectionTitle {
+  margin: 0 0 2.5rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+/* ── How it works ───────────────────────────────────────── */
+.howSection {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.stepsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.stepCard {
+  padding: 2rem 1.5rem;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.stepCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  transform: translateY(-3px);
+}
+
+.stepNumber {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #74ad0d;
+  display: block;
+  margin-bottom: 0.9rem;
+}
+
+.stepTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.stepDesc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* ── Feature highlights ─────────────────────────────────── */
+.featuresSection {
+  padding: 5rem 2rem;
+  background: #f8fafc;
+}
+
+.featuresSection .sectionEyebrow,
+.featuresSection .sectionTitle {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.featuresSection .sectionTitle {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1100px;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.featureCard {
+  background: #fff;
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  border: 1px solid #e2e8f0;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.featureCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  transform: translateY(-3px);
+}
+
+.featureIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+
+.featureIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.featureTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.featureDesc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* ── Bottom CTA ─────────────────────────────────────────── */
+.ctaBanner {
+  padding: 6rem 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #0a66c2 0%, #0d47a1 100%);
+}
+
+.ctaTitle {
+  margin: 0 0 0.75rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+.ctaSub {
+  margin: 0 0 2rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ctaButton {
+  background: #fff;
+  color: #0a66c2;
+  border: none;
+  padding: 0.85rem 2.2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.ctaButton:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .proofStrip {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.2rem;
+  }
+
+  .stepsRow,
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .howSection,
+  .featuresSection {
+    padding: 3.5rem 1.2rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.45rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .ctaBanner {
+    padding: 4rem 1.5rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.45rem;
+  }
+}

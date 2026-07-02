@@ -1,0 +1,57 @@
+.allUsersProfile {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.userProfileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.userProfileCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.userProfileImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+
+  border-radius: 50%;
+  border: 3px solid #0077b5;
+
+  margin: 0.75rem 0 1rem 0;
+}
+
+.userProfileCard h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.userProfileCard p:first-of-type {
+  margin: 0.25rem 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.userProfileCard p:last-of-type {
+  margin-top: 0.75rem;
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

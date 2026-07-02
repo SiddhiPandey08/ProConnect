@@ -1,0 +1,101 @@
+POST http://localhost:9090/register HTTP/1.1
+content-Type: application/json
+
+
+{
+  "name": "Test User",
+  "username": "testUser",
+  "email": "test@gmail",
+  "password": "123"
+}
+###
+
+POST http://localhost:9090/login HTTP/1.1
+content-Type: application/json
+
+
+{
+  "email": "User1@gmail.com",
+  "password": "123"
+}
+###
+GET http://localhost:9090/get_comments/6a3ad29170ee5ae42017a032
+###
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GET http://localhost:9090/user/get_all_users HTTP/1.1
+
+
+###
+GET http://localhost:9090/get_user_profile/d182c867d1a9c719cd6f264098c09c94ce0c01345a99c93c0d0a5abccbad5afc HTTP/1.1
+content-Type: application/json
+
+
+
+###
+
+POST http://localhost:9090/update_profile_data HTTP/1.1
+content-Type: application/json
+
+
+{
+  "token": "47bfe6c38a5eae331fb39e36217f3617f8293fe4692e0156f3d6c96760caa35e",
+  "bio": "Software Engineer",
+  "currentPosition": "SDE 1"
+}
+###
+GET http://localhost:9090/getAllPosts HTTP/1.1
+content-Type: application/json
+
+{
+  "token" : "5a11c3a1c894ccfe95a4c96d34ddfe2b5a2824286435b4b0e253c6efe0034214"
+}
+
+###
+POST http://localhost:9090/deletePost HTTP/1.1
+content-Type: application/json
+
+{
+  "token" : "5a11c3a1c894ccfe95a4c96d34ddfe2b5a2824286435b4b0e253c6efe0034214",
+  "postId": "6a3f8599222f9f872852b8d9"
+}
+
+###
+GET http://localhost:9090/get_comments/6a378fb768f9303206faa7fa HTTP/1.1
+
+content-Type: application/json
+
+###
+POST http://localhost:9090/increment_likes HTTP/1.1
+content-Type: application/json
+
+{
+  "postId": "6a378fb768f9303206faa7fa"
+}
+
+###
+GET http://localhost:9090/user/get_connection_requests/b745ca737c4dd227fd12b406fb869174649bee4a007bc19d7816119b62ffa07b HTTP/1.1
+###
+POST http://localhost:9090/user/send_connection_request HTTP/1.1
+content-Type: application/json
+
+{
+  "token" : "b745ca737c4dd227fd12b406fb869174649bee4a007bc19d7816119b62ffa07b",
+  "targetUserId": "6a3a906fcc8910a15f898a8b"
+}

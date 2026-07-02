@@ -1,0 +1,158 @@
+.section {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto 3rem auto;
+}
+
+.sectionTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a66c2;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  min-width: 22px;
+}
+
+.connectionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.connectionCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+}
+
+.connectionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profilePicture {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ececec;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.userInfo h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #222;
+}
+
+.userInfo p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.acceptBtn {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.3rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.acceptBtn:hover {
+  background: #16a34a;
+}
+
+.rejectBtn {
+  background: white;
+  border: 1.5px solid #ef4444;
+  color: #ef4444;
+  padding: 0.65rem 1.3rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.rejectBtn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.connectedBadge {
+  color: #22c55e;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1.5px solid #22c55e;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+}
+
+.emptyState {
+  margin-top: 1rem;
+  text-align: center;
+  color: #777;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .connectionCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .actionButtons {
+    width: 100%;
+  }
+
+  .acceptBtn,
+  .rejectBtn {
+    flex: 1;
+  }
+
+  .profilePicture {
+    width: 60px;
+    height: 60px;
+  }
+}

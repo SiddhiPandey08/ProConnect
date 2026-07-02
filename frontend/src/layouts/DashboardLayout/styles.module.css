@@ -1,0 +1,510 @@
+/* ─── Layout ─────────────────────────────────────────────── */
+
+.homeContainer {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 2rem;
+  align-items: flex-start;
+}
+
+.homeContainer > div:nth-child(odd) {
+  flex: 0.22;
+}
+
+.homeContainer > div:nth-child(even) {
+  flex: 0.56;
+}
+
+.homeContainer_left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  padding-left: 0.5rem;
+}
+
+/* ─── Left nav items ─────────────────────────────────────── */
+
+.sideBarOption {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sideBarOption svg {
+  height: 1.4rem;
+  width: 1.4rem;
+  flex-shrink: 0;
+}
+
+.sideBarOption p {
+  margin: 0;
+}
+
+.sideBarOption:hover {
+  color: #0077b5;
+  background: rgba(0, 119, 181, 0.06);
+  transform: translateX(3px);
+}
+
+/* ─── Right sidebar wrapper ──────────────────────────────── */
+
+.extracontainer {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+/* ─── Profile completion card ────────────────────────────── */
+
+.completionCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.completionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.completionTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.completionPercent {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0077b5;
+}
+
+.progressTrack {
+  height: 5px;
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #0077b5, #00a0dc);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.completionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.completionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.completionDot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.completionDot svg {
+  width: 14px;
+  height: 14px;
+}
+
+.dotDone {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.dotTodo {
+  background: #f3f4f6;
+  color: #d1d5db;
+}
+
+.completionLabel {
+  font-size: 13px;
+  color: #374151;
+}
+
+.labelDone {
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.editProfileBtn {
+  margin-top: 0.1rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  border: 1.5px solid #0077b5;
+  border-radius: 999px;
+  background: transparent;
+  color: #0077b5;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.editProfileBtn:hover {
+  background: #0077b5;
+  color: #ffffff;
+}
+
+/* ─── Top Profiles card ──────────────────────────────────── */
+
+.topProfilesCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sidebarHeading {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ─── Search ─────────────────────────────────────────────── */
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: #9ca3af;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  width: 100%;
+  height: 34px;
+  padding: 0 2rem 0 2rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #111827;
+  background: #f9fafb;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+.searchInput:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #0077b5;
+  box-shadow: 0 0 0 3px rgba(0, 119, 181, 0.12);
+}
+
+.searchClear {
+  position: absolute;
+  right: 9px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  line-height: 1;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s ease;
+}
+
+.searchClear:hover {
+  color: #374151;
+}
+
+/* ─── User list ──────────────────────────────────────────── */
+
+.userList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.noResults {
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 0;
+  padding: 0.25rem 0;
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.userRow:hover {
+  background: #f3f4f6;
+}
+
+.userAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f3f4f6;
+  flex-shrink: 0;
+}
+
+.userRowInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.userRowName {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRowEmail {
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Mobile Navbar ──────────────────────────────────────── */
+
+.mobileNav {
+  display: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .homeContainer > div:nth-child(odd) {
+    flex: 0.18;
+  }
+  .homeContainer > div:nth-child(even) {
+    flex: 0.64;
+  }
+  .extracontainer {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .homeContainer {
+    padding: 1rem;
+    padding-bottom: 5rem;
+  }
+
+  .homeContainer_left {
+    display: none;
+  }
+
+  .homeContainer > div:nth-child(even) {
+    flex: 1;
+  }
+
+  .mobileNav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #fff;
+    border-top: 1px solid #e2e8f0;
+    z-index: 50;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .mobileNavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    color: #64748b;
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 10px;
+    transition: color 0.2s;
+  }
+
+  .mobileNavItem svg {
+    height: 1.4rem;
+    width: 1.4rem;
+  }
+
+  .mobileNavItem:hover,
+  .mobileNavItem.active {
+    color: #0a66c2;
+  }
+}
+/* ─── Sidebar card (shared shell) ────────────────────────── */
+.sidebarCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ─── Notifications ──────────────────────────────────────── */
+.notifHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.markReadBtn {
+  background: none;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  color: #0077b5;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+
+.markReadBtn:hover {
+  color: #005885;
+}
+
+.notifList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.notifList::-webkit-scrollbar {
+  width: 3px;
+}
+
+.notifList::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 999px;
+}
+
+.notifItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.55rem 0.4rem;
+  border-radius: 10px;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.notifItem:hover {
+  background: #f9fafb;
+}
+
+.notifUnread {
+  background: #eff6ff;
+}
+
+.notifUnread:hover {
+  background: #dbeafe;
+}
+
+.notifAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #f3f4f6;
+}
+
+.notifBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.notifMessage {
+  margin: 0;
+  font-size: 12px;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.notifTime {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.unreadDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #0077b5;
+  flex-shrink: 0;
+  margin-top: 4px;
+}

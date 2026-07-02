@@ -1,0 +1,266 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f5f7fb 100%);
+  padding: 20px;
+}
+
+.cardContainer {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  min-height: 560px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+/* ── LEFT PANEL ── */
+.cardContainer_left {
+  flex: 0.55;
+  padding: 3rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.brandMark {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #037eb3 0%, #025f8a 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.headingBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cardContainer_left_heading {
+  font-weight: 700;
+  font-size: 1.85rem;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subheading {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.statusMessage {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid currentColor;
+  opacity: 0.9;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.inputRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.inputLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.inputField {
+  width: 100%;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  outline: none;
+  background: #f8fbfe;
+  color: #0f172a;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  box-sizing: border-box;
+}
+
+.inputField::placeholder {
+  color: #b0bec5;
+}
+
+.inputField:focus {
+  border-color: #037eb3;
+  box-shadow: 0 0 0 3px rgba(3, 126, 179, 0.1);
+  background: #fff;
+}
+
+.submitBtn {
+  margin-top: 0.25rem;
+}
+
+:global(.buttonWithoutOutline) {
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #037eb3 0%, #025f8a 100%);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(3, 126, 179, 0.22);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+:global(.buttonWithoutOutline:hover) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(3, 126, 179, 0.3);
+  filter: brightness(1.04);
+}
+
+:global(.buttonWithoutOutline:active) {
+  transform: translateY(0);
+}
+
+:global(.buttonWithoutOutline p) {
+  margin: 0;
+  padding: 0.9rem 1.2rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.toggleText {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.toggleLink {
+  color: #037eb3;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.toggleLink:hover {
+  color: #025f8a;
+  text-decoration: underline;
+}
+
+/* ── RIGHT PANEL ── */
+.cardContainer_right {
+  flex: 0.45;
+  background: linear-gradient(145deg, #037eb3 0%, #014f73 60%, #012d47 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardContainer_right::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  top: -80px;
+  right: -80px;
+}
+
+.cardContainer_right::after {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  bottom: -60px;
+  left: -40px;
+}
+
+.rightContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.rightQuote {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.rightSub {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .cardContainer {
+    flex-direction: column;
+    height: auto;
+    max-width: 100%;
+    min-height: unset;
+  }
+
+  .cardContainer_left {
+    padding: 2.2rem 1.6rem;
+  }
+
+  .cardContainer_left_heading {
+    font-size: 1.55rem;
+  }
+
+  .inputRow {
+    grid-template-columns: 1fr;
+  }
+
+  .cardContainer_right {
+    display: none;
+  }
+}
