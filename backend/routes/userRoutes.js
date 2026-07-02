@@ -18,7 +18,10 @@ import multer from "multer";
 import validate from "../middlewares/validate.js";
 import { registerSchema, loginSchema } from "../validators/authValidators.js";
 import { authLimiter } from "../middlewares/rateLimiter.js";
-import { updateProfileSchema } from "../validators/profileValidators.js";
+import {
+  updateProfileSchema,
+  updateUserProfileSchema,
+} from "../validators/profileValidators.js";
 import { sendConnectionSchema } from "../validators/connectionValidators.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 
@@ -46,7 +49,7 @@ router
 
 router
   .route("/update_profile")
-  .post(authMiddleware, validate(updateProfileSchema), updateUserProfile);
+  .post(authMiddleware, validate(updateUserProfileSchema), updateUserProfile);
 
 router.route("/get_user_profile/:token").get(authMiddleware, getUserProfile);
 
