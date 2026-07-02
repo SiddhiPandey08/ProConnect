@@ -20,7 +20,7 @@ import { showToast } from "@/config/redux/reducer/toastReducer";
 import {
   PostSkeleton,
   CreatePostSkeleton,
-} from "@/components/Skeleton/postSkeleton";
+} from "@/Components/Skeleton/postSkeleton";
 
 export default function dashboardComponent() {
   const router = useRouter();
