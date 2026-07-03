@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
   },
   profilePicture: {
     type: String,
-    default: "default.jpg",
+    default: "default2.jpg",
   },
   token: {
     type: String,
