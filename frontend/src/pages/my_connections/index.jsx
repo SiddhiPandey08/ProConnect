@@ -5,7 +5,7 @@ import {
 } from "@/config/redux/action/authAction";
 import UserLayout from "@/layouts";
 import DashboardLayout from "@/layouts/DashboardLayout";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.css";
 import { BASE_URL } from "@/config/index.jsx";
@@ -15,17 +15,26 @@ export default function MyConnectionsPage() {
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth);
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    dispatch(getConnectionRequestsForMe({ token }));
-    dispatch(getConnectionsRequest({ token }));
+
+    Promise.all([
+      dispatch(getConnectionRequestsForMe({ token })),
+      dispatch(getConnectionsRequest({ token })),
+    ]).finally(() => setLoading(false));
   }, []);
 
   const handleAccept = (connectionReqId) => {
     const token = localStorage.getItem("token");
+
     dispatch(
-      AcceptConnectionRequest({ connectionReqId, token, action: "accept" }),
+      AcceptConnectionRequest({
+        connectionReqId,
+        token,
+        action: "accept",
+      }),
     ).then(() => {
       dispatch(getConnectionRequestsForMe({ token }));
     });
@@ -33,8 +42,13 @@ export default function MyConnectionsPage() {
 
   const handleReject = (connectionReqId) => {
     const token = localStorage.getItem("token");
+
     dispatch(
-      AcceptConnectionRequest({ connectionReqId, token, action: "reject" }),
+      AcceptConnectionRequest({
+        connectionReqId,
+        token,
+        action: "reject",
+      }),
     ).then(() => {
       dispatch(getConnectionRequestsForMe({ token }));
     });
@@ -47,7 +61,8 @@ export default function MyConnectionsPage() {
   const acceptedConnections = authState.connectionRequests.filter(
     (c) => c.status_accepted === true,
   );
-  // connections you sent that were accepted
+
+  // Connections you sent that were accepted
   const sentAndAccepted = authState.connections.filter(
     (c) => c.status_accepted === true,
   );
@@ -65,7 +80,11 @@ export default function MyConnectionsPage() {
             )}
           </h1>
 
-          {pendingRequests.length > 0 ? (
+          {loading ? (
+            <div className={styles.emptyState}>
+              <p>Loading connection requests...</p>
+            </div>
+          ) : pendingRequests.length > 0 ? (
             <div className={styles.connectionContainer}>
               {pendingRequests.map((conn) => (
                 <div
@@ -82,6 +101,7 @@ export default function MyConnectionsPage() {
                       className={styles.profilePicture}
                       alt={conn.fromUserId.name}
                     />
+
                     <div className={styles.userInfo}>
                       <h2>{conn.fromUserId.name}</h2>
                       <p>{conn.fromUserId.email}</p>
@@ -98,6 +118,7 @@ export default function MyConnectionsPage() {
                     >
                       Accept
                     </button>
+
                     <button
                       className={styles.rejectBtn}
                       onClick={() => handleReject(conn._id)}
@@ -118,11 +139,15 @@ export default function MyConnectionsPage() {
         <section className={styles.section}>
           <h1 className={styles.sectionTitle}>My Network</h1>
 
-          {allConnections.length > 0 ? (
+          {loading ? (
+            <div className={styles.emptyState}>
+              <p>Loading connections...</p>
+            </div>
+          ) : allConnections.length > 0 ? (
             <div className={styles.connectionContainer}>
               {allConnections.map((conn) => {
-                // figure out which user to display
                 const isSentByMe = conn.fromUserId?._id === authState.user?._id;
+
                 const displayUser = isSentByMe
                   ? conn.toUserId
                   : conn.fromUserId;
@@ -134,6 +159,7 @@ export default function MyConnectionsPage() {
                     onClick={() =>
                       router.push(`/viewProfile/${displayUser.username}`)
                     }
+                    style={{ cursor: "pointer" }}
                   >
                     <div className={styles.leftSection}>
                       <img
@@ -141,11 +167,13 @@ export default function MyConnectionsPage() {
                         className={styles.profilePicture}
                         alt={displayUser.name}
                       />
+
                       <div className={styles.userInfo}>
                         <h2>{displayUser.name}</h2>
                         <p>{displayUser.email}</p>
                       </div>
                     </div>
+
                     <div className={styles.connectedBadge}>Connected</div>
                   </div>
                 );
