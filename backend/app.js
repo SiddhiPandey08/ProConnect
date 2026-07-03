@@ -22,8 +22,13 @@ io.on("connection", (socket) => {
   socket.on("join_room", (userId) => socket.join(userId));
 });
 
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://pro-connect-roan.vercel.app"],
+    credentials: true,
+  }),
+);
 app.use(globalLimiter);
-app.use(cors());
 app.use(express.json());
 
 app.use(mongoSanitize());
