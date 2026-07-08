@@ -37,9 +37,10 @@ export default function DashboardLayout({ children }) {
   // ── Search filter ───────────────────────────────────────────────
   const filteredUsers = useMemo(() => {
     if (!authState.all_users_fetched) return [];
+    const validUsers = authState.all_users.filter((user) => user.userId);
     const q = searchQuery.toLowerCase().trim();
-    if (!q) return authState.all_users;
-    return authState.all_users.filter((user) => {
+    if (!q) return validUsers;
+    return validUsers.filter((user) => {
       const name = user.userId?.name?.toLowerCase() ?? "";
       const username = user.userId?.username?.toLowerCase() ?? "";
       return name.includes(q) || username.includes(q);
@@ -163,26 +164,30 @@ export default function DashboardLayout({ children }) {
         {authState.all_users_fetched && filteredUsers.length === 0 && (
           <p className={styles.noResults}>No users found.</p>
         )}
-        {filteredUsers.map((user) => (
-          <div
-            key={user._id}
-            className={styles.userRow}
-            onClick={() => {
-              router.push(`/viewProfile/${user.userId.username}`);
-              setMobilePanel(null);
-            }}
-          >
-            <img
-              className={styles.userAvatar}
-              src={`${BASE_URL}/${user.userId.profilePicture}`}
-              alt={user.userId?.name ?? "User"}
-            />
-            <div className={styles.userRowInfo}>
-              <span className={styles.userRowName}>{user.userId?.name}</span>
-              <span className={styles.userRowEmail}>{user.userId?.email}</span>
+        {filteredUsers
+          .filter((user) => user.userId)
+          .map((user) => (
+            <div
+              key={user._id}
+              className={styles.userRow}
+              onClick={() => {
+                router.push(`/viewProfile/${user.userId?.username}`);
+                setMobilePanel(null);
+              }}
+            >
+              <img
+                className={styles.userAvatar}
+                src={`${BASE_URL}/${user.userId?.profilePicture}`}
+                alt={user.userId?.name ?? "User"}
+              />
+              <div className={styles.userRowInfo}>
+                <span className={styles.userRowName}>{user.userId?.name}</span>
+                <span className={styles.userRowEmail}>
+                  {user.userId?.email}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   );
