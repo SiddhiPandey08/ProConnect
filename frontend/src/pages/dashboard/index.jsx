@@ -334,7 +334,8 @@ export default function dashboardComponent() {
                       {postState.postId === post._id && (
                         <div className={styles.commentsSection}>
                           <div className={styles.commentsList}>
-                            {postState.comments.length === 0 ? (
+                            {postState.comments.length === 0 ||
+                            postState.comments.length === 0 ? (
                               <p
                                 style={{
                                   fontSize: "13px",
@@ -355,12 +356,12 @@ export default function dashboardComponent() {
                                   >
                                     <img
                                       className={styles.commentAvatar}
-                                      src={`${BASE_URL}/${comment.userId.profilePicture}`}
+                                      src={`${BASE_URL}/${comment.userId?.profilePicture}`}
                                       alt=""
                                     />
                                     <div className={styles.commentBody}>
                                       <span className={styles.commentName}>
-                                        {comment.userId.name}
+                                        {comment.userId?.name}
                                       </span>
                                       <p className={styles.commentText}>
                                         {comment.body}

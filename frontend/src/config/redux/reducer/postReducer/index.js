@@ -49,21 +49,23 @@ const postSlice = createSlice({
     builder.addCase(getAllComments.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.comments = action.payload.comments;
+      state.comments = action.payload.comments || []; // never undefined
       state.postId = action.payload.postId;
       state.message = "Comments fetched successfully";
+    });
+    builder.addCase(getAllComments.pending, (state, action) => {
+      state.isLoading = true;
+      state.comments = []; // clear stale comments from the previous post while loading
+      state.message = "Fetching comments...";
     });
     builder.addCase(getAllComments.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
+      state.comments = []; // don't leave stale/undefined comments on failure
       state.message =
         action.payload?.message ||
         action.error.message ||
         "Failed to fetch comments";
-    });
-    builder.addCase(getAllComments.pending, (state) => {
-      state.isLoading = true;
-      state.message = "Fetching comments...";
     });
 
     builder.addCase(createComment.pending, (state) => {
