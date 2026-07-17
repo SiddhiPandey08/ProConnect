@@ -25,29 +25,31 @@ export default function discoverComponent() {
           <h1>Discover</h1>
           <div className={styles.allUsersProfile}>
             {authState.all_users_fetched &&
-              authState.all_users.map((user) => {
-                return (
-                  <div
-                    onClick={() =>
-                      router.push(`/viewProfile/${user.userId.username}`)
-                    }
-                    key={user._id}
-                    className={styles.userProfileCard}
-                  >
-                    <h2>{user.userId.name}</h2>
+              authState.all_users
+                .filter((user) => user.userId)
+                .map((user) => {
+                  return (
+                    <div
+                      onClick={() =>
+                        router.push(`/viewProfile/${user.userId.username}`)
+                      }
+                      key={user._id}
+                      className={styles.userProfileCard}
+                    >
+                      <h2>{user.userId.name}</h2>
 
-                    <p>{user.userId.username}</p>
-                    <img
-                      className={styles.userProfileImage}
-                      width={100}
-                      src={`${BASE_URL}/${user.userId.profilePicture}`}
-                      alt="Profile"
-                    />
+                      <p>{user.userId.username}</p>
+                      <img
+                        className={styles.userProfileImage}
+                        width={100}
+                        src={`${BASE_URL}/${user.userId.profilePicture}`}
+                        alt="Profile"
+                      />
 
-                    <p>{user.currentPosition}</p>
-                  </div>
-                );
-              })}
+                      <p>{user.currentPosition}</p>
+                    </div>
+                  );
+                })}
           </div>
         </div>
       </DashboardLayout>
