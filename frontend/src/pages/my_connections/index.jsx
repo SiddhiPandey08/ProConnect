@@ -147,8 +147,8 @@ export default function MyConnectionsPage() {
           ) : allConnections.length > 0 ? (
             <div className={styles.connectionContainer}>
               {allConnections.map((conn) => {
-                const isSentByMe = conn.fromUserId?._id === authState.user?._id;
-
+                const isSentByMe =
+                  String(conn.fromUserId?._id) === String(authState.user?._id);
                 const displayUser = isSentByMe
                   ? conn.toUserId
                   : conn.fromUserId;
