@@ -129,9 +129,23 @@ export const createComment = createAsyncThunk(
 );
 export const updatePost = createAsyncThunk(
   "posts/update",
-  async ({ postId, body }) => {
-    const token = localStorage.getItem("token");
-    await clientServer.patch(`/${postId}`, { token, body });
-    return postId;
+  async ({ postId, body }, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await clientServer.patch(`/posts/${postId}`, {
+        token,
+        body,
+      });
+
+      return {
+        postId,
+        ...response.data,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error?.response?.data || { message: error.message },
+      );
+    }
   },
 );

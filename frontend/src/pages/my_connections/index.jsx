@@ -23,6 +23,7 @@ export default function MyConnectionsPage() {
     Promise.all([
       dispatch(getConnectionRequestsForMe({ token })),
       dispatch(getConnectionsRequest({ token })),
+      console.log(JSON.stringify(authState.user)),
     ]).finally(() => setLoading(false));
   }, []);
 
@@ -69,6 +70,25 @@ export default function MyConnectionsPage() {
 
   const allConnections = [...acceptedConnections, ...sentAndAccepted];
 
+  useEffect(() => {
+    if (!authState.user) return;
+    allConnections.forEach((conn) => {
+      console.log("authState.user at render:", authState.user);
+      console.log({
+        connId: conn._id,
+        me: authState.user._id,
+        fromId: conn.fromUserId?._id,
+        toId: conn.toUserId?._id,
+        isSentByMe:
+          String(conn.fromUserId?._id) === String(authState.user?._id),
+        displayName: (String(conn.fromUserId?._id) ===
+        String(authState.user?._id)
+          ? conn.toUserId
+          : conn.fromUserId
+        )?.name,
+      });
+    });
+  }, [allConnections, authState.user]);
   return (
     <UserLayout>
       <DashboardLayout>
@@ -147,8 +167,11 @@ export default function MyConnectionsPage() {
           ) : allConnections.length > 0 ? (
             <div className={styles.connectionContainer}>
               {allConnections.map((conn) => {
+                const myUserId =
+                  authState.user?.userId?._id ?? authState.user?.userId;
+
                 const isSentByMe =
-                  String(conn.fromUserId?._id) === String(authState.user?._id);
+                  String(conn.fromUserId?._id) === String(myUserId);
                 const displayUser = isSentByMe
                   ? conn.toUserId
                   : conn.fromUserId;
@@ -174,7 +197,7 @@ export default function MyConnectionsPage() {
                         <p>{displayUser.email}</p>
                       </div>
                     </div>
-
+                    {console.log(authState.user)}
                     <div className={styles.connectedBadge}>Connected</div>
                   </div>
                 );

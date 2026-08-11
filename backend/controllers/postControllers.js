@@ -63,25 +63,41 @@ export const deletePost = async (req, res) => {
 export const commentPost = async (req, res) => {
   const { token, postId } = req.body;
   const commentBody = req.body.body;
+
   try {
-    const user = await User.findOne({ token: token }).select("_id");
+    const user = await User.findOne({ token }).select("_id");
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
     const post = await Post.findById(postId);
+
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
+
     const comment = new Comment({
       userId: user._id,
-      postId: postId,
+      postId,
       body: commentBody,
     });
 
     await comment.save();
-    return res.status(200).json({ message: "Comment added successfully" });
-  } catch (err) {
-    return res.status(500).json({ message: "Server error" });
+
+    const populatedComment = await Comment.findById(comment._id).populate(
+      "userId",
+      "name username profilePicture",
+    );
+
+    return res.status(200).json({
+      message: "Comment added successfully",
+      comment: populatedComment,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
   }
 };
 

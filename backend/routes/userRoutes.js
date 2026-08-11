@@ -45,7 +45,7 @@ router.route("/register").post(authLimiter, validate(registerSchema), register);
 // ── Profile (protected) ─────────────────────────────────
 router
   .route("/upload_profile_picture")
-  .post(authMiddleware, upload.single("profilePicture"), uploadProfilePicture);
+  .post(upload.single("profilePicture"), authMiddleware, uploadProfilePicture);
 
 router
   .route("/update_profile")
