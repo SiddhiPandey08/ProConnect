@@ -343,7 +343,9 @@ export const getMyConnectionRequests = async (req, res, next) => {
     const user = req.user;
     const connectionRequests = await ConnectionReq.find({
       fromUserId: user._id,
-    }).populate("toUserId", USER_PUBLIC_FIELDS);
+    })
+      .populate("fromUserId", USER_PUBLIC_FIELDS)
+      .populate("toUserId", USER_PUBLIC_FIELDS);
     return res.status(200).json({ connectionRequests });
   } catch (err) {
     next(err);
@@ -355,7 +357,9 @@ export const getConnectionRequestsForMe = async (req, res, next) => {
     const user = req.user;
     const connectionRequests = await ConnectionReq.find({
       toUserId: user._id,
-    }).populate("fromUserId", USER_PUBLIC_FIELDS);
+    })
+      .populate("fromUserId", USER_PUBLIC_FIELDS)
+      .populate("toUserId", USER_PUBLIC_FIELDS);
     return res.status(200).json({ connectionRequests });
   } catch (err) {
     next(err);

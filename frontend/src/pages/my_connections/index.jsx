@@ -72,6 +72,7 @@ export default function MyConnectionsPage() {
   return (
     <UserLayout>
       <DashboardLayout>
+        {console.log(allConnections)}
         <section className={styles.section}>
           <h1 className={styles.sectionTitle}>
             Connection Requests
