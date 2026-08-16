@@ -1,266 +1,541 @@
-.container {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+.pageWrapper {
   min-height: 100vh;
+  width: 100vw;
+  background-color: #f3f4f6;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f5f7fb 100%);
-  padding: 20px;
+  padding: 1.5rem;
+  font-family: "Poppins", sans-serif;
 }
 
-.cardContainer {
-  display: flex;
+.authCard {
   width: 100%;
-  max-width: 900px;
-  min-height: 560px;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+  max-width: 1080px;
+  height: 660px;
   background: #ffffff;
-  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 24px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
-/* ── LEFT PANEL ── */
-.cardContainer_left {
-  flex: 0.55;
-  padding: 3rem 2.8rem;
+/* ===========================
+        LEFT FORM SIDE
+=========================== */
+
+.formSection {
+  flex: 1;
+  padding: 2.25rem 2.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 1.2rem;
+  justify-content: space-between;
+  background: #fafafa;
+  position: relative;
+  overflow: hidden;
 }
 
-.brandMark {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #037eb3 0%, #025f8a 100%);
-  color: #fff;
-  font-weight: 800;
+/* 1. Anchored Top Logo */
+.brandHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.brandLogoImg {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* 3. Scrollable Form Body with Hidden Scrollbar */
+.formContentScrollable {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  padding: 0.75rem 0;
+}
+
+.formContentScrollable::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.formContainer {
+  max-width: 380px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.formContainer h2 {
+  font-size: 1.55rem;
+  color: #0f172a;
+  margin: 0 0 0.2rem;
+}
+
+.subtext {
+  font-size: 0.83rem;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* 3. Two-Column Row for First/Last Name */
+.rowTwoCol {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.rowTwoCol .inputGroup {
+  flex: 1;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.inputGroup label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
   font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.inputGroup input:focus {
+  border-color: #0a66c2;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eyeToggle {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.25rem;
+  padding: 0;
 }
 
-.headingBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.cardContainer_left_heading {
-  font-weight: 700;
-  font-size: 1.85rem;
-  color: #0f172a;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.subheading {
-  font-size: 0.95rem;
+.iconSvg {
+  width: 1.15rem;
+  height: 1.15rem;
   color: #64748b;
-  margin: 0;
+  transition: color 0.2s ease;
 }
 
-.statusMessage {
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin: 0;
-  padding: 0.6rem 0.9rem;
-  border-radius: 10px;
-  background: #f8fafc;
-  border: 1px solid currentColor;
-  opacity: 0.9;
-}
-
-.inputContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.inputRow {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem;
-}
-
-.inputWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.inputLabel {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #475569;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.inputField {
-  width: 100%;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 0.8rem 1rem;
-  font-size: 0.95rem;
-  outline: none;
-  background: #f8fbfe;
+.iconSvg:hover {
   color: #0f172a;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-  box-sizing: border-box;
-}
-
-.inputField::placeholder {
-  color: #b0bec5;
-}
-
-.inputField:focus {
-  border-color: #037eb3;
-  box-shadow: 0 0 0 3px rgba(3, 126, 179, 0.1);
-  background: #fff;
 }
 
 .submitBtn {
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 999px;
+  border: none;
+  background: #0a66c2;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.submitBtn:hover {
+  background: #004182;
+  transform: translateY(-1px);
+}
+
+.switchAuthText {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.switchBtn {
+  background: none;
+  border: none;
+  color: #0a66c2;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.formFooter {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+}
+
+.legalText {
+  font-size: 0.73rem;
+  color: #94a3b8;
+}
+
+/* ===========================
+   2. DYNAMIC RIGHT SLIDESHOW
+=========================== */
+
+.slideshowSection {
+  flex: 1.15;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 12px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.activeSlide {
+  opacity: 1;
+}
+
+.slideOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.25) 0%,
+    rgba(15, 23, 42, 0.65) 100%
+  );
+}
+
+.glassCardTop,
+.glassCardBottom {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  color: #ffffff;
+}
+
+.glassCardTop {
+  align-self: flex-start;
+  max-width: 280px;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.4rem;
+}
+
+.featureTitle {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.featureDesc {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  opacity: 0.9;
   margin-top: 0.25rem;
 }
 
-:global(.buttonWithoutOutline) {
-  width: 100%;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #037eb3 0%, #025f8a 100%);
-  color: #fff;
+.glassCardBottom {
+  margin-bottom: 1.25rem;
+}
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.sparkleIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: #fbbf24;
+}
+
+.indicatorContainer {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.45);
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(3, 126, 179, 0.22);
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    filter 0.18s ease;
+  transition: all 0.25s ease;
 }
 
-:global(.buttonWithoutOutline:hover) {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(3, 126, 179, 0.3);
-  filter: brightness(1.04);
+.activeDot {
+  background: #ffffff;
+  width: 20px;
+  border-radius: 999px;
 }
 
-:global(.buttonWithoutOutline:active) {
-  transform: translateY(0);
+/* Responsive breakpoint */
+@media (max-width: 850px) {
+  .slideshowSection {
+    display: none;
+  }
+  .authCard {
+    max-width: 450px;
+    height: auto;
+  }
 }
-
-:global(.buttonWithoutOutline p) {
-  margin: 0;
-  padding: 0.9rem 1.2rem;
-  text-align: center;
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
-}
-
-.toggleText {
-  text-align: center;
-  font-size: 0.875rem;
-  color: #64748b;
-  margin: 0;
-}
-
-.toggleLink {
-  color: #037eb3;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.15s ease;
-}
-
-.toggleLink:hover {
-  color: #025f8a;
-  text-decoration: underline;
-}
-
-/* ── RIGHT PANEL ── */
-.cardContainer_right {
-  flex: 0.45;
-  background: linear-gradient(145deg, #037eb3 0%, #014f73 60%, #012d47 100%);
+/* 1. Page Background (Outer Frame) */
+.pageWrapper {
+  min-height: 100vh;
+  width: 100vw;
+  /* Soft grey-beige ambient background gradient */
+  background: radial-gradient(circle at 50% 50%, #eae9e5 0%, #dcdad4 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2.5rem;
+  padding: 1.5rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 2. Main Card Base Gradient */
+.authCard {
+  width: 100%;
+  max-width: 1080px;
+  height: 660px;
+  /* Warm gradient tint blending from soft cream/grey to yellow glow at bottom left */
+  background: linear-gradient(135deg, #f4f3f0 0%, #e8e6e0 55%, #ffe685 100%);
+  border-radius: 28px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* 3. Left Form Section Gradient Glow */
+.formSection {
+  flex: 1;
+  padding: 2.25rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Layered radial gradient to match the vibrant warm yellow in bottom-left corner */
+  background:
+    radial-gradient(
+      circle at 10% 90%,
+      rgba(255, 218, 92, 0.75) 0%,
+      rgba(255, 218, 92, 0) 55%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(245, 244, 240, 0.85) 0%,
+      rgba(238, 236, 230, 0.85) 100%
+    );
   position: relative;
   overflow: hidden;
 }
 
-.cardContainer_right::before {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  top: -80px;
-  right: -80px;
+/* 4. Yellow Submit Button & Inputs */
+.submitBtn {
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 999px;
+  border: none;
+  background: #ffdb58; /* Warm yellow matching design */
+  color: #1e1e1e;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(255, 219, 88, 0.35);
 }
 
-.cardContainer_right::after {
-  content: "";
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  bottom: -60px;
-  left: -40px;
+.submitBtn:hover {
+  background: #f5cf44;
+  transform: translateY(-1px);
 }
 
-.rightContent {
-  position: relative;
-  z-index: 1;
+.inputGroup input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.inputGroup input:focus {
+  border-color: #e5c138;
+  background: #ffffff;
+}
+/* 1. Page Frame Background */
+.pageWrapper {
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at 50% 50%, #eef3f9 0%, #dae3ee 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 2. Main Card Base Gradient */
+.authCard {
+  width: 100%;
+  max-width: 1080px;
+  height: 660px;
+  /* Transitions from subtle soft-blue top-left into warm yellow glow bottom-left */
+  background: linear-gradient(135deg, #f4f7fb 0%, #e2ebf6 50%, #fff1b8 100%);
+  border-radius: 28px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 82, 180, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* 3. Left Form Side - Multi-Glow Canvas */
+.formSection {
+  flex: 1;
+  padding: 2.25rem 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  justify-content: space-between;
+  /* 
+    Glow 1: Yellow bottom-left ("Pro")
+    Glow 2: Lime Green bottom-right dot accent (".")
+    Glow 3: Soft ProConnect Electric Blue ambient top-left 
+  */
+  background:
+    radial-gradient(
+      circle at 10% 95%,
+      rgba(255, 204, 0, 0.45) 0%,
+      rgba(255, 204, 0, 0) 50%
+    ),
+    radial-gradient(
+      circle at 90% 95%,
+      rgba(34, 197, 94, 0.25) 0%,
+      rgba(34, 197, 94, 0) 40%
+    ),
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(0, 102, 204, 0.12) 0%,
+      rgba(0, 102, 204, 0) 45%
+    ),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.rightQuote {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
+/* 4. "Pro" Yellow Primary Action Button */
+.submitBtn {
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 999px;
+  border: none;
+  background: #ffcc00; /* Exact logo "Pro" yellow */
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(255, 204, 0, 0.4);
 }
 
-.rightSub {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-  margin: 0;
+.submitBtn:hover {
+  background: #f0be00;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 204, 0, 0.5);
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .cardContainer {
-    flex-direction: column;
-    height: auto;
-    max-width: 100%;
-    min-height: unset;
-  }
+/* 5. Electric Blue Focus Ring for Inputs */
+.inputGroup input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
 
-  .cardContainer_left {
-    padding: 2.2rem 1.6rem;
-  }
+.inputGroup input:focus {
+  border-color: #0066cc; /* Logo Electric Blue */
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+  background: #ffffff;
+}
 
-  .cardContainer_left_heading {
-    font-size: 1.55rem;
-  }
+/* 6. Switch Auth Link (Electric Blue) */
+.switchBtn {
+  background: none;
+  border: none;
+  color: #0066cc;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
 
-  .inputRow {
-    grid-template-columns: 1fr;
-  }
-
-  .cardContainer_right {
-    display: none;
-  }
+.switchBtn:hover {
+  text-decoration: underline;
 }

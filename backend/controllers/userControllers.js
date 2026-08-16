@@ -414,6 +414,42 @@ export const respondToConnectionRequest = async (req, res, next) => {
   }
 };
 
+export const getMutualConnections = async (req, res) => {
+  try {
+    const { targetUserId } = req.params;
+    const currentUserId = req.user._id; // Attached by authMiddleware
+
+    const currentUser = await User.findById(currentUserId);
+    const targetUser = await User.findById(targetUserId);
+
+    if (!currentUser || !targetUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Convert ObjectIds to strings for exact set comparison
+    const currentUserConnections = new Set(
+      (currentUser.connections || []).map((id) => id.toString()),
+    );
+
+    // Find overlapping connection IDs
+    const mutualConnectionIds = (targetUser.connections || []).filter((id) =>
+      currentUserConnections.has(id.toString()),
+    );
+
+    // Fetch populated profiles for overlapping IDs
+    const mutualConnections = await User.find({
+      _id: { $in: mutualConnectionIds },
+    }).select("name username profilePicture headline");
+
+    return res.status(200).json({
+      count: mutualConnections.length,
+      mutualConnections,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export const getUserProfileByUsername = async (req, res, next) => {
   try {
     const { username } = req.query;

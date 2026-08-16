@@ -30,27 +30,49 @@
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  font-size: 1.1rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #475569; /* Muted slate grey for inactive links */
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  width: 100%;
 }
 
 .sideBarOption svg {
-  height: 1.4rem;
-  width: 1.4rem;
+  height: 1.35rem;
+  width: 1.35rem;
   flex-shrink: 0;
+  color: #475569; /* Neutral slate grey for inactive icons */
+  transition: color 0.2s ease;
 }
 
 .sideBarOption p {
   margin: 0;
 }
 
+/* Hover state (Tactile background without layout shift) */
 .sideBarOption:hover {
-  color: #0077b5;
-  background: rgba(0, 119, 181, 0.06);
-  transform: translateX(3px);
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+.sideBarOption:hover svg {
+  color: #1e293b;
+}
+
+/* Active State Accent */
+.sideBarOption.active {
+  background-color: #e0f2fe; /* Subtle pill background */
+  color: #0a66c2; /* Primary blue text */
+  font-weight: 600;
+}
+
+.sideBarOption.active svg {
+  color: #0a66c2; /* Primary blue icon */
 }
 
 /* ─── Right sidebar wrapper ──────────────────────────────── */
