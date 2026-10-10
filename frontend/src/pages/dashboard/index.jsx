@@ -22,28 +22,44 @@ import {
   CreatePostSkeleton,
 } from "@/Components/Skeleton/postSkeleton";
 
-export default function dashboardComponent() {
+export default function DashboardComponent() {
   const router = useRouter();
+  const { postId } = router.query; // Extracted postId from route query
   const dispatch = useDispatch();
+
   const authState = useSelector((state) => state.auth);
+  const postState = useSelector((state) => state.posts);
+
+  const [postContent, setPostContent] = useState("");
+  const [fileContent, setFileContent] = useState(null);
+  const [commentContent, setCommentContent] = useState("");
+  const [editingPostId, setEditingPostId] = useState(null);
+  const [editContent, setEditContent] = useState("");
 
   useEffect(() => {
     if (authState.isTokenPresent) {
       dispatch(getAllPosts());
       dispatch(getAboutUser({ token: localStorage.getItem("token") }));
     }
-  }, [authState.isTokenPresent]);
+  }, [authState.isTokenPresent, dispatch]);
 
-  const [postContent, setPostContent] = useState("");
-  const [fileContent, setFileContent] = useState(null);
+  useEffect(() => {
+    if (postId) {
+      // Small timeout ensures posts have rendered into the DOM
+      const timer = setTimeout(() => {
+        const element = document.getElementById(`post-${postId}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          element.classList.add("highlighted-post");
+        }
+      }, 300);
 
-  const [commentContent, setCommentContent] = useState("");
+      return () => clearTimeout(timer);
+    }
+  }, [postId]);
 
-  const [editingPostId, setEditingPostId] = useState(null);
-  const [editContent, setEditContent] = useState("");
-
-  const handleEditPost = async (postId) => {
-    await dispatch(updatePost({ postId, body: editContent }));
+  const handleEditPost = async (id) => {
+    await dispatch(updatePost({ postId: id, body: editContent }));
     dispatch(showToast({ message: "Post updated", type: "success" }));
 
     await dispatch(getAllPosts());
@@ -51,7 +67,6 @@ export default function dashboardComponent() {
     setEditContent("");
   };
 
-  const postState = useSelector((state) => state.posts);
   const handlePost = async () => {
     await dispatch(
       createPost({
@@ -68,12 +83,14 @@ export default function dashboardComponent() {
     setPostContent("");
     setFileContent(null);
   };
-  const handleComment = async (postId) => {
+
+  const handleComment = async (id) => {
     if (!commentContent.trim()) return;
-    await dispatch(createComment({ postId, body: commentContent }));
-    await dispatch(getAllComments(postId));
+    await dispatch(createComment({ postId: id, body: commentContent }));
+    await dispatch(getAllComments(id));
     setCommentContent("");
   };
+
   const sharePost = async (post) => {
     const shareUrl = `${window.location.origin}/post/${post._id}`;
 
@@ -89,6 +106,32 @@ export default function dashboardComponent() {
       window.open(url, "_blank");
     }
   };
+
+  function timeAgo(dateString) {
+    if (!dateString) return "";
+
+    const now = new Date();
+    const posted = new Date(dateString);
+    const seconds = Math.floor((now - posted) / 1000);
+
+    if (seconds < 60) return "Just now";
+
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m ago`;
+
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${days}d ago`;
+
+    return posted.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: posted.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
+    });
+  }
+
   if (authState.profileFetched && authState.user?.userId) {
     return (
       <UserLayout>
@@ -151,9 +194,13 @@ export default function dashboardComponent() {
               ) : (
                 Array.isArray(postState.posts) &&
                 postState.posts
-                  .filter((post) => post.userId) // drop posts with unpopulated/deleted user
+                  .filter((post) => post.userId)
                   .map((post) => (
-                    <div key={post._id} className={styles.postCard}>
+                    <div
+                      key={post._id}
+                      id={`post-${post._id}`}
+                      className={styles.postCard}
+                    >
                       <div className={styles.postHeader}>
                         <img
                           className={styles.userProfileImage}
@@ -163,10 +210,12 @@ export default function dashboardComponent() {
 
                         <div className={styles.userInfo}>
                           <div className={styles.name}>{post.userId.name}</div>
-
                           <div className={styles.username}>
                             @{post.userId.username}
                           </div>
+                        </div>
+                        <div className={styles.postTimestamp}>
+                          {timeAgo(post.createdAt)}
                         </div>
 
                         {post.userId._id === authState.user.userId._id && (
@@ -289,9 +338,9 @@ export default function dashboardComponent() {
                         <div
                           onClick={() => {
                             if (postState.postId === post._id) {
-                              dispatch(resetPostId()); // close if already open
+                              dispatch(resetPostId());
                             } else {
-                              dispatch(getAllComments(post._id)); // open for this post
+                              dispatch(getAllComments(post._id));
                             }
                           }}
                           className={styles.singleOption_optionsContainer}
@@ -313,9 +362,7 @@ export default function dashboardComponent() {
                         </div>
                         <div className={styles.singleOption_optionsContainer}>
                           <svg
-                            onClick={() => {
-                              sharePost(post);
-                            }}
+                            onClick={() => sharePost(post)}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -334,8 +381,7 @@ export default function dashboardComponent() {
                       {postState.postId === post._id && (
                         <div className={styles.commentsSection}>
                           <div className={styles.commentsList}>
-                            {postState.comments.length === 0 ||
-                            postState.comments.length === 0 ? (
+                            {postState.comments.length === 0 ? (
                               <p
                                 style={{
                                   fontSize: "13px",
@@ -412,20 +458,20 @@ export default function dashboardComponent() {
         </DashboardLayout>
       </UserLayout>
     );
-  } else {
-    return (
-      <UserLayout>
-        <DashboardLayout>
-          <div className={styles.homeComponent}>
-            <h4>Create Post</h4>
-            <CreatePostSkeleton />
-            <h4>Posts</h4>
-            <PostSkeleton />
-            <PostSkeleton />
-            <PostSkeleton />
-          </div>
-        </DashboardLayout>
-      </UserLayout>
-    );
   }
+
+  return (
+    <UserLayout>
+      <DashboardLayout>
+        <div className={styles.homeComponent}>
+          <h4>Create Post</h4>
+          <CreatePostSkeleton />
+          <h4>Posts</h4>
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+        </div>
+      </DashboardLayout>
+    </UserLayout>
+  );
 }

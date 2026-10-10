@@ -188,7 +188,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-
+  position: relative; /* if not already set */
   padding: 1rem;
 }
 
@@ -544,4 +544,13 @@
   font-weight: 600;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
+}
+.postTimestamp {
+  position: absolute;
+  top: 0.7rem;
+  right: 1rem;
+  bottom: auto;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  white-space: nowrap;
 }

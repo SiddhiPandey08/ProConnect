@@ -1,47 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
+/* ===========================
+      CONTAINER & LAYOUT
+=========================== */
+
 .container {
   width: min(1100px, 95%);
   margin: 2rem auto;
-  background: #fff;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   font-family: "Poppins", sans-serif;
+  color: #1e293b;
 }
-
-/* ===========================
-        COVER
-=========================== */
-
-.backDropContainer {
-  position: relative;
-  width: 100%;
-  height: 240px;
-  background: url("https://images.pexels.com/photos/2080960/pexels-photo-2080960.jpeg")
-    center/cover no-repeat;
-}
-
-.backDropContainer img {
-  position: absolute;
-  bottom: -60px;
-  left: 50px;
-
-  width: 150px;
-  height: 150px;
-
-  border-radius: 50%;
-  object-fit: cover;
-
-  border: 5px solid white;
-}
-
-/* ===========================
-      PROFILE
-=========================== */
 
 .profileContainer_details {
-  padding: 85px 50px 40px;
+  padding: 70px 2.5rem 2.5rem;
 }
 
 .profileBody {
@@ -56,162 +31,232 @@
   min-width: 0;
 }
 
-.activitySection {
-  width: 320px;
-  flex-shrink: 0;
+/* ===========================
+        COVER & AVATAR
+=========================== */
+
+.backDropContainer {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: url("https://images.pexels.com/photos/2080960/pexels-photo-2080960.jpeg")
+    center/cover no-repeat;
+}
+
+.profileAvatar {
+  position: absolute;
+  bottom: -50px;
+  left: 2.5rem;
+
+  width: 130px;
+  height: 130px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
 }
 
 /* ===========================
-        NAME
+        NAME & HEADLINE
 =========================== */
 
 .nameRow {
   display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  align-items: baseline;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
-.nameRow h3 {
-  font-size: 2rem;
+.nameRow h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .username {
   color: #64748b;
-  font-size: 1rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+  margin: 0;
 }
 
 .headline {
-  margin: 0.7rem 0;
-  color: #475569;
+  margin: 0.5rem 0 0;
+  color: #334155;
   font-size: 1rem;
-}
-
-.headlineEdit {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 /* ===========================
-       BUTTONS
+       ACTIONS BAR
 =========================== */
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
 
 .connectBtn,
 .connectedBtn,
 .pendingBtn {
-  margin-top: 1rem;
   border: none;
   border-radius: 999px;
-  padding: 0.65rem 1.5rem;
-
+  padding: 0.6rem 1.4rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-
-  transition: 0.25s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 .connectBtn {
   background: #0a66c2;
-  color: white;
+  color: #ffffff;
 }
 
 .connectBtn:hover {
   background: #004182;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .connectedBtn {
-  background: #198754;
-  color: white;
+  background: #16a34a;
+  color: #ffffff;
 }
 
 .pendingBtn {
-  background: #ffc107;
-  color: #222;
+  background: #f59e0b;
+  color: #ffffff;
 }
-
-/* ===========================
-         BIO
-=========================== */
-
-.bio {
-  margin-top: 1rem;
-  color: #475569;
-  line-height: 1.8;
-  white-space: pre-wrap;
-}
-
-/* ===========================
-       RESUME
-=========================== */
 
 .downloadResume {
-  margin-top: 1rem;
-
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  background: #f8fafc;
+  color: #334155;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #cbd5e1;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-  font-size: 0.95rem;
+.downloadResume:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
 }
 
 /* ===========================
-     WORK HISTORY
+     SECTIONS & HISTORY
 =========================== */
 
-.workHistory {
+.sectionBlock {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #f1f5f9;
 }
 
-.workHistory h4 {
+.sectionBlock h4 {
   margin-bottom: 1rem;
-
-  color: #94a3b8;
-
+  color: #64748b;
   letter-spacing: 0.08em;
-  font-size: 0.8rem;
-
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
 .workHistoryContent {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .workHistoryItem {
   border-left: 3px solid #0a66c2;
-  padding-left: 14px;
+  padding-left: 1rem;
 }
 
 .workRole {
-  font-weight: 600;
-  color: #1e293b;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.workCompany {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.workPosition {
+  font-weight: 400;
+  color: #64748b;
 }
 
 .workYears {
+  margin-top: 0.2rem;
   color: #94a3b8;
-  font-size: 0.85rem;
+  font-size: 0.825rem;
 }
 
 /* ===========================
-      ACTIVITY
+         BIO
 =========================== */
 
+.bioText {
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0 0 0.4rem;
+}
+
+.toggleBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #0a66c2;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toggleBtn:hover {
+  text-decoration: underline;
+}
+
+/* ===========================
+      ACTIVITY SECTION
+=========================== */
+
+.activitySection {
+  width: 340px;
+  flex-shrink: 0;
+}
+
 .activitySection h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
   margin-bottom: 1rem;
   color: #0f172a;
 }
 
 .noActivity {
   color: #94a3b8;
+  font-size: 0.9rem;
   font-style: italic;
 }
 
@@ -220,22 +265,23 @@
 }
 
 .card {
-  background: #f8fafc;
+  background: #ffffff;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #e2e8f0;
-  transition: 0.25s;
+  transition: all 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
 .card_profileContainer {
   width: 100%;
   aspect-ratio: 16/9;
   overflow: hidden;
+  background: #f1f5f9;
 }
 
 .card_profile {
@@ -244,29 +290,112 @@
   object-fit: cover;
 }
 
-.card_profilePlaceholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-}
-
 .postContent {
-  padding: 12px 15px;
-  font-size: 0.9rem;
-  color: #475569;
-
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  padding: 0.85rem 1rem;
+  font-size: 0.875rem;
+  color: #334155;
+  line-height: 1.5;
+  margin: 0;
 }
 
-/* =====================================
-            TABLET
-===================================== */
+.activityMeta {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid #f8fafc;
+  background: #fafafa;
+}
+
+/* ===========================
+         MODAL
+=========================== */
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #64748b;
+  transition: background 0.2s ease;
+}
+
+.modalClose:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.modalClose svg {
+  width: 20px;
+  height: 20px;
+}
+
+.modalBody {
+  padding: 1.5rem;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* ===========================
+        RESPONSIVE
+=========================== */
 
 @media (max-width: 992px) {
   .profileBody {
     flex-direction: column;
+    gap: 2.5rem;
   }
 
   .activitySection {
@@ -274,19 +403,15 @@
   }
 
   .profileContainer_details {
-    padding: 80px 35px 35px;
+    padding: 65px 2rem 2rem;
   }
 
-  .backDropContainer img {
-    left: 35px;
+  .profileAvatar {
+    left: 2rem;
   }
 }
 
-/* =====================================
-            MOBILE
-===================================== */
-
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .container {
     width: 100%;
     margin: 0;
@@ -294,101 +419,89 @@
   }
 
   .backDropContainer {
-    height: 170px;
+    height: 160px;
   }
 
-  .backDropContainer img {
-    width: 110px;
-    height: 110px;
-
-    left: 20px;
-    bottom: -45px;
+  .profileAvatar {
+    width: 100px;
+    height: 100px;
+    left: 1.25rem;
+    bottom: -40px;
   }
 
   .profileContainer_details {
-    padding: 65px 20px 25px;
+    padding: 50px 1.25rem 1.5rem;
   }
 
   .nameRow {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
+    gap: 0.15rem;
   }
 
-  .nameRow h3 {
-    font-size: 1.6rem;
+  .nameRow h2 {
+    font-size: 1.4rem;
   }
 
-  .headline {
-    font-size: 0.95rem;
-  }
-
-  .bio {
-    font-size: 0.92rem;
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .downloadResume {
-    flex-wrap: wrap;
-  }
-
-  .connectBtn,
-  .connectedBtn,
-  .pendingBtn {
-    width: 100%;
-  }
-
-  .postContent {
-    white-space: normal;
+    justify-content: center;
   }
 }
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+  cursor: pointer; /* Indicates the card is clickable */
+}
 
-/* =====================================
-        SMALL PHONES
-===================================== */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
 
-@media (max-width: 480px) {
-  .backDropContainer {
-    height: 140px;
-  }
+.card_profileContainer {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #f1f5f9;
+}
 
-  .backDropContainer img {
-    width: 90px;
-    height: 90px;
+.card_profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    bottom: -35px;
-    left: 15px;
-  }
+/* Multi-line truncation for post text */
+.postContent {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #334155;
+  line-height: 1.5;
+  margin: 0;
 
-  .profileContainer_details {
-    padding: 55px 15px 20px;
-  }
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Truncates text after 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
 
-  .nameRow h3 {
-    font-size: 1.35rem;
-  }
-
-  .username {
-    font-size: 0.9rem;
-  }
-
-  .headline {
-    font-size: 0.9rem;
-  }
-
-  .bio {
-    font-size: 0.85rem;
-    line-height: 1.6;
-  }
-
-  .workRole {
-    font-size: 0.9rem;
-  }
-
-  .workYears {
-    font-size: 0.8rem;
-  }
-
-  .activitySection h3 {
-    font-size: 1rem;
-  }
+.activityMeta {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid #f8fafc;
+  background: #fafafa;
 }

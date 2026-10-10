@@ -7,14 +7,17 @@
   align-items: flex-start;
 }
 
-.homeContainer > div:nth-child(odd) {
-  flex: 0.22;
+.homeContainer > div:nth-child(1) {
+  flex: 0.16;
 }
 
-.homeContainer > div:nth-child(even) {
-  flex: 0.56;
+.homeContainer > div:nth-child(2) {
+  flex: 0.6;
 }
 
+.homeContainer > div:nth-child(3) {
+  flex: 0.24;
+}
 .homeContainer_left {
   display: flex;
   flex-direction: column;

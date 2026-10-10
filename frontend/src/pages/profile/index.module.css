@@ -76,21 +76,24 @@
   flex-wrap: wrap;
 }
 
-.nameRow h2 {
-  margin: 0;
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: #0f172a;
-}
 .nameRow p {
   color: #64748b;
   font-size: 1rem;
   margin-left: 0.5rem;
 }
 
+.nameRow h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
 .username {
   color: #64748b;
-  font-size: 0.92rem;
+  font-size: 0.98rem;
+  font-weight: 500;
   margin: 0;
 }
 
