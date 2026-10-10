@@ -10,6 +10,7 @@ import authReducer from "./reducer/authReducer";
 import postReducer from "./reducer/postReducer";
 import notificationReducer from "./reducer/notificationReducer";
 import toastReducer from "./reducer/toastReducer";
+import messageReducer from "./reducer/messageReducer";
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     posts: postReducer,
     notifications: notificationReducer,
     toast: toastReducer,
+    messages: messageReducer,
   },
 });
 

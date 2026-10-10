@@ -92,7 +92,6 @@ export default function MyConnectionsPage() {
   return (
     <UserLayout>
       <DashboardLayout>
-        {console.log(allConnections)}
         <section className={styles.section}>
           <h1 className={styles.sectionTitle}>
             Connection Requests
@@ -236,8 +235,20 @@ export default function MyConnectionsPage() {
                         <p>{displayUser.email}</p>
                       </div>
                     </div>
-                    {console.log(authState.user)}
-                    <div className={styles.connectedBadge}>Connected</div>
+                    <div
+                      className={styles.connectionActions}
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      <div className={styles.connectedBadge}>Connected</div>
+                      <button
+                        className={styles.messageBtn}
+                        onClick={() =>
+                          router.push(`/messages?user=${displayUser._id}`)
+                        }
+                      >
+                        Message
+                      </button>
+                    </div>
                   </div>
                 );
               })}

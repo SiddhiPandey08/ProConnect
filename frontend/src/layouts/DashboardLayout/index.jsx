@@ -10,12 +10,17 @@ import {
   fetchNotifications,
   markNotificationsRead,
 } from "@/config/redux/action/notificationAction";
-import { addNotification } from "@/config/redux/reducer/notificationReducer";
+import { markMessagesRead } from "@/config/redux/action/messageAction";
+import {
+  addNotification,
+  removeNotification,
+} from "@/config/redux/reducer/notificationReducer";
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout({ children, hideRightSidebar = false }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth);
+  const unreadMessages = useSelector((state) => state.messages?.unreadTotal || 0);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [mobilePanel, setMobilePanel] = useState(null); // 'notifications' | 'search' | null
@@ -55,25 +60,51 @@ export default function DashboardLayout({ children }) {
       dispatch(fetchNotifications({ token }));
     }
 
-    socket.on("new_notification", (notification) => {
+    const handleNewNotification = (notification) => {
+      if (notification.type === "message") {
+        const senderId = notification.sender?._id || notification.sender;
+        if (
+          router.pathname === "/messages" &&
+          String(router.query.user || "") === String(senderId)
+        ) {
+          dispatch(removeNotification({ senderId }));
+          dispatch(markMessagesRead(senderId));
+          return;
+        }
+      }
       dispatch(addNotification(notification));
-    });
+    };
+    const handleNotificationRemoved = ({ notificationId, senderId }) => {
+      dispatch(removeNotification({ notificationId, senderId }));
+    };
+
+    socket.on("new_notification", handleNewNotification);
+    socket.on("notification_removed", handleNotificationRemoved);
 
     return () => {
-      socket.off("new_notification");
+      socket.off("new_notification", handleNewNotification);
+      socket.off("notification_removed", handleNotificationRemoved);
     };
-  }, []);
+  }, [dispatch, router.pathname, router.query.user]);
 
   const handleMarkRead = () => {
     const token = localStorage.getItem("token");
     dispatch(markNotificationsRead({ token }));
   };
 
-  const renderNotifications = () => (
-    <>
+  const renderNotifications = () => {
+    const hasUnreadNotification = notificationState.notifications.some(
+      (notification) =>
+        !(notification.type === "message"
+          ? notification.read
+          : notification.isRead),
+    );
+
+    return (
+      <>
       <div className={styles.notifHeader}>
         <h2 className={styles.sidebarHeading}>Notifications</h2>
-        {notificationState.unreadCount > 0 && (
+        {hasUnreadNotification && (
           <button className={styles.markReadBtn} onClick={handleMarkRead}>
             Mark all read
           </button>
@@ -81,36 +112,57 @@ export default function DashboardLayout({ children }) {
       </div>
 
       <div className={styles.notifList}>
-        {notificationState.notifications.filter((n) => !n.isRead).length ===
-        0 ? (
+        {notificationState.notifications.filter(
+          (n) => !(n.type === "message" ? n.read : n.isRead),
+        ).length === 0 ? (
           <p className={styles.noResults}>No notifications yet.</p>
         ) : (
           notificationState.notifications
-            .filter((n) => !n.isRead)
-            .map((notif) => (
+            .filter((n) => !(n.type === "message" ? n.read : n.isRead))
+            .map((notif) => {
+                const sender = notif.sender || notif.fromUserId;
+                const isMessage = notif.type === "message";
+                const messageCount = notif.messageCount || 1;
+                const isRead = isMessage ? notif.read : notif.isRead;
+                const notificationText = isMessage
+                  ? `${sender?.name || "Someone"} sent you ${messageCount} message${
+                      messageCount === 1 ? "" : "s"
+                    }`
+                  : notif.message;
+                return (
               <div
                 key={notif._id}
                 className={`${styles.notifItem} ${
-                  !notif.isRead ? styles.notifUnread : ""
+                  !isRead ? styles.notifUnread : ""
                 }`}
+                onClick={() => {
+                  if (!isMessage) return;
+                  dispatch(removeNotification({ notificationId: notif._id }));
+                  router.push(`/messages?user=${sender?._id}`);
+                }}
               >
                 <img
                   className={styles.notifAvatar}
                   src={
-                    notif.fromUserId?.profilePicture
-                      ? `${BASE_URL}/${notif.fromUserId.profilePicture}`
+                    sender?.profilePicture
+                      ? `${BASE_URL}/${sender.profilePicture}`
                       : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                          notif.fromUserId?.name ?? "U",
+                          sender?.name ?? "U",
                         )}&background=0077b5&color=fff&size=64`
                   }
-                  alt={notif.fromUserId?.name}
+                  alt={sender?.name}
                 />
 
                 <div className={styles.notifBody}>
-                  <p className={styles.notifMessage}>{notif.message}</p>
+                  <p className={styles.notifMessage}>{notificationText}</p>
+                  {isMessage && (
+                    <p className={styles.notifMessage}>{notif.preview}</p>
+                  )}
 
                   <span className={styles.notifTime}>
-                    {new Date(notif.createdAt).toLocaleDateString("en-IN", {
+                    {new Date(
+                      isMessage ? notif.updatedAt : notif.createdAt,
+                    ).toLocaleDateString("en-IN", {
                       day: "numeric",
                       month: "short",
                       hour: "2-digit",
@@ -119,13 +171,15 @@ export default function DashboardLayout({ children }) {
                   </span>
                 </div>
 
-                {!notif.isRead && <span className={styles.unreadDot} />}
+                {!isRead && <span className={styles.unreadDot} />}
               </div>
-            ))
+                );
+            })
         )}
       </div>
-    </>
-  );
+      </>
+    );
+  };
 
   const renderSearch = () => (
     <>
@@ -196,7 +250,11 @@ export default function DashboardLayout({ children }) {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.homeContainer}>
+        <div
+          className={`${styles.homeContainer} ${
+            hideRightSidebar ? styles.messagesDashboard : ""
+          }`}
+        >
           {/* ── Left sidebar ── */}
           <div className={styles.homeContainer_left}>
             {/* Home */}
@@ -261,19 +319,35 @@ export default function DashboardLayout({ children }) {
               </svg>
               <p>My Connections</p>
             </div>
+            <div
+              onClick={() => router.push("/messages")}
+              className={`${styles.sideBarOption} ${
+                router.pathname === "/messages" ? styles.active : ""
+              }`}
+            >
+              <span>✉</span>
+              <p>Messages</p>
+              {unreadMessages > 0 && (
+                <span className={styles.sidebarMessageBadge}>
+                  {unreadMessages}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* ── Feed ── */}
           <div className={styles.feedContainer}>{children}</div>
 
           {/* ── Right sidebar ── */}
-          <div className={styles.extracontainer}>
-            {/* ── Notifications ── */}
-            <div className={styles.sidebarCard}>{renderNotifications()}</div>
+          {!hideRightSidebar && (
+            <div className={styles.extracontainer}>
+              {/* ── Notifications ── */}
+              <div className={styles.sidebarCard}>{renderNotifications()}</div>
 
-            {/* ── Top Profiles ── */}
-            <div className={styles.sidebarCard}>{renderSearch()}</div>
-          </div>
+              {/* ── Top Profiles ── */}
+              <div className={styles.sidebarCard}>{renderSearch()}</div>
+            </div>
+          )}
 
           {/* Mobile nav */}
           <div className={styles.mobileNav}>
@@ -391,6 +465,18 @@ export default function DashboardLayout({ children }) {
                 <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
               </svg>
               <span>Connections</span>
+            </div>
+            <div
+              className={`${styles.mobileNavItem} ${
+                router.pathname === "/messages" ? styles.active : ""
+              }`}
+              onClick={() => router.push("/messages")}
+            >
+              <span>✉</span>
+              {unreadMessages > 0 && (
+                <span className={styles.mobileNavBadge}>{unreadMessages}</span>
+              )}
+              <span>Messages</span>
             </div>
           </div>
 

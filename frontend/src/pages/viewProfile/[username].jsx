@@ -173,15 +173,29 @@ export default function ViewProfileComponent({ userProfile }) {
                   {authState.user?.userId?._id !== userProfile.userId._id && (
                     <>
                       {currentUserInConnection ? (
-                        <button
-                          className={
-                            isConnectionNull
-                              ? styles.pendingBtn
-                              : styles.connectedBtn
-                          }
-                        >
-                          {isConnectionNull ? "Pending" : "Connected"}
-                        </button>
+                        <>
+                          <button
+                            className={
+                              isConnectionNull
+                                ? styles.pendingBtn
+                                : styles.connectedBtn
+                            }
+                          >
+                            {isConnectionNull ? "Pending" : "Connected"}
+                          </button>
+                          {!isConnectionNull && (
+                            <button
+                              className={styles.messageBtn}
+                              onClick={() =>
+                                router.push(
+                                  `/messages?user=${userProfile.userId._id}`,
+                                )
+                              }
+                            >
+                              Message
+                            </button>
+                          )}
+                        </>
                       ) : (
                         <button
                           className={styles.connectBtn}

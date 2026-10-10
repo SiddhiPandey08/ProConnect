@@ -27,9 +27,12 @@ export const getNotifications = async (req, res) => {
     const user = await User.findOne({ token });
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    const notifications = await Notification.find({ toUserId: user._id })
+    const notifications = await Notification.find({
+      $or: [{ toUserId: user._id }, { recipient: user._id }],
+    })
       .populate("fromUserId", "name username profilePicture")
-      .sort({ createdAt: -1 })
+      .populate("sender", "name username profilePicture")
+      .sort({ updatedAt: -1, createdAt: -1 })
       .limit(20);
 
     res.status(200).json({ notifications });
@@ -45,8 +48,13 @@ export const markNotificationsRead = async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     await Notification.updateMany(
-      { toUserId: user._id, isRead: false },
-      { isRead: true },
+      {
+        $or: [
+          { toUserId: user._id, isRead: false },
+          { recipient: user._id, read: false },
+        ],
+      },
+      { $set: { isRead: true, read: true } },
     );
     res.status(200).json({ message: "Marked as read" });
   } catch (error) {

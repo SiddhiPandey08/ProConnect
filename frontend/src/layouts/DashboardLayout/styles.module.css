@@ -2,9 +2,20 @@
 
 .homeContainer {
   display: flex;
+  min-width: 0;
   gap: 2rem;
   padding: 1.5rem 2rem;
   align-items: flex-start;
+}
+
+.messagesDashboard {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.16fr) minmax(0, 1fr);
+}
+
+.messagesDashboard .feedContainer {
+  min-width: 0;
+  width: 100%;
 }
 
 .homeContainer > div:nth-child(1) {
@@ -43,6 +54,17 @@
     background-color 0.2s ease,
     color 0.2s ease;
   width: 100%;
+}
+
+.sidebarMessageBadge {
+  min-width: 20px;
+  margin-left: auto;
+  padding: 0.15rem 0.4rem;
+  border-radius: 999px;
+  background: #0a66c2;
+  color: white;
+  font-size: 0.7rem;
+  text-align: center;
 }
 
 .sideBarOption svg {
