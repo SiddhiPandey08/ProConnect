@@ -153,3 +153,18 @@ export const updateProfileData = createAsyncThunk(
     }
   },
 );
+export const getMutualConnections = createAsyncThunk(
+  "user/getMutualConnections",
+  async (targetUserId, thunkAPI) => {
+    try {
+      const response = await clientServer.get(
+        `/get_mutual_connections/${targetUserId}`,
+      );
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err?.response?.data || { message: err.message },
+      );
+    }
+  },
+);

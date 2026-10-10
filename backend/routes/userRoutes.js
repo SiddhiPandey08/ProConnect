@@ -13,6 +13,7 @@ import {
   getConnectionRequestsForMe,
   getUserProfileByUsername,
   getMyConnectionRequests,
+  getMutualConnections,
 } from "../controllers/userControllers.js";
 import multer from "multer";
 import validate from "../middlewares/validate.js";
@@ -79,5 +80,9 @@ router
   .get(authMiddleware, getMyConnectionRequests);
 
 router.route("/get_user_by_username").get(getUserProfileByUsername);
+
+router
+  .route("/get_mutual_connections/:targetUserId")
+  .get(authMiddleware, getMutualConnections);
 
 export default router;

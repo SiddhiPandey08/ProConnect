@@ -3,11 +3,14 @@ import styles from "./styles.module.css";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { reset } from "../../config/redux/reducer/authReducer/index";
+import ProfilePrompt from "../ProfileSetupModal";
 export default function NavbarComponent() {
   const router = useRouter();
 
   const authState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const isAuthPage =
+    router.pathname === "/login" || router.pathname === "/register";
   return (
     <div className={styles.container}>
       <nav className={styles.navbar}>
@@ -22,7 +25,9 @@ export default function NavbarComponent() {
           {authState.profileFetched && (
             <div className={styles.authActions}>
               <p className={styles.welcomeText}>
-                Welcome, {authState.user.userId.name}!
+                Welcome,{" "}
+                {authState.user?.userId?.name || authState.user?.name || "User"}
+                !
               </p>
               <p
                 className={styles.navLink}
@@ -54,6 +59,7 @@ export default function NavbarComponent() {
           )}
         </div>
       </nav>
+      {authState.showProfilePrompt && !isAuthPage && <ProfilePrompt />}
     </div>
   );
 }

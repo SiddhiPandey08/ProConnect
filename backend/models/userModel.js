@@ -35,6 +35,12 @@ const userSchema = mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  connections: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

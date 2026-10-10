@@ -4,10 +4,13 @@ import { getAboutUser } from "../../action/authAction";
 import {
   getConnectionsRequest,
   getConnectionRequestsForMe,
+  updateProfileData,
+  getMutualConnections,
 } from "../../action/authAction";
 
 const initialState = {
   user: [],
+  showProfilePrompt: false,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -19,6 +22,8 @@ const initialState = {
   message: "",
   all_users: [],
   all_users_fetched: false,
+  justRegistered: false,
+  mutualConnections: [],
 };
 
 const authSlice = createSlice({
@@ -31,6 +36,9 @@ const authSlice = createSlice({
     },
     emptyMessage: (state) => {
       state.message = "";
+    },
+    closeProfilePrompt: (state) => {
+      state.showProfilePrompt = false;
     },
     setIsTokenPresent: (state) => {
       state.isTokenPresent = true;
@@ -51,6 +59,12 @@ const authSlice = createSlice({
         state.loggedIn = true;
         state.isError = false;
         state.user = action.payload;
+
+        if (state.justRegistered) {
+          state.showProfilePrompt = true; // Show prompt now that they are logged in
+          state.justRegistered = false; // Reset flag
+        }
+
         state.message = "Login successful";
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -69,7 +83,22 @@ const authSlice = createSlice({
         state.loggedIn = false;
         state.isError = false;
         state.user = action.payload;
-        state.message = "Registration successful , please login to continue";
+        state.justRegistered = true; // Mark that they just created an account
+        state.message = "Registration successful, please login to continue";
+      })
+      .addCase(updateProfileData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateProfileData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.showProfilePrompt = false;
+        state.user = { ...state.user, ...action.payload };
+        state.message = "Profile updated successfully!";
+      })
+      .addCase(updateProfileData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload?.message || "Profile update failed";
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -123,6 +152,10 @@ const authSlice = createSlice({
       .addCase(getConnectionRequestsForMe.pending, (state) => {
         state.isLoading = true;
         state.message = "Fetching connection requests...";
+      })
+      .addCase(getMutualConnections.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.mutualConnections = action.payload.mutualConnections;
       });
   },
 });
@@ -133,6 +166,6 @@ export const {
   emptyMessage,
   setIsTokenNotPresent,
   setIsTokenPresent,
-  isTokenPresent,
+  closeProfilePrompt,
 } = authSlice.actions;
 export default authSlice.reducer;
